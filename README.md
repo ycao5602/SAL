@@ -2,7 +2,7 @@
 PyTorch implementation of [Symbiotic Adversarial Learning for Attribute-based Person Search](https://arxiv.org/abs/2007.09609) (ECCV2020).
 
 ## Update
-28/02/21: Updated [train.py](train.py) and [scripts](scripts). Uploaded trained models.
+28/02/21: Updated [train.py](train.py) and [scripts](scripts). Uploaded [trained models]((https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaoaf_connect_ust_hk/EqOH1p24IvtCid8o914_ai8BrP1SuXZT56JQbEhoVP_IxA?e=hN5IWI)).
 
 ## Problem setting
 <p align="center">
@@ -143,7 +143,7 @@ Use `--eval-freq` to control the evaluation frequency and `--start-eval` to indi
 Ranked results can be visualized via `--visualize-ranks`, which works along with `--evaluate`. Ranked images will be saved in `save_dir/ranked_results/dataset_name` where `save_dir` is the directory you specify with `--save-dir`. This function is implemented in [torchreid/utils/reidtools.py](torchreid/utils/reidtools.py).
 
 #### Trained models
-Pretrained and state-of-the-art models can be downloaded from [url](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaoaf_connect_ust_hk/EqOH1p24IvtCid8o914_ai8B8_YOesN5W8oXTiHOhcfsrg).
+Pretrained and state-of-the-art models can be downloaded from [url](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaoaf_connect_ust_hk/EqOH1p24IvtCid8o914_ai8BrP1SuXZT56JQbEhoVP_IxA?e=hN5IWI).
 
 ## Citation
 If you find this code useful to your research, please cite the following paper

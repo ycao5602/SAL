@@ -152,7 +152,7 @@ If you find this code useful to your research, please cite the following paper
     title={Symbiotic Adversarial Learning for Attribute-based Person Search},
     author={Cao, Yu-Tong and Wang, Jingya and Tao, Dacheng},
     booktitle={European Conference on Computer Vision},
-        pages={230--247},
+    pages={230--247},
     year={2020},
     organization={Springer}
     }

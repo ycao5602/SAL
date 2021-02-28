@@ -1,6 +1,9 @@
 # Symbiotic Adversarial Learning for Attribute-based Person Search
 PyTorch implementation of [Symbiotic Adversarial Learning for Attribute-based Person Search](https://arxiv.org/abs/2007.09609) (ECCV2020).
 
+## Update
+28/02/21: Updated [train.py](train.py) and [scripts](scripts). Uploaded trained models.
+
 ## Problem setting
 <p align="center">
   <img src="imgs/setting.png" alt="ranked_results" width="600">
@@ -72,29 +75,66 @@ Training methods are implemented in [train.py](train.py)
 
 Input arguments for the above training scripts are unified in [args.py](args.py).
 
-Training scripts in [scripts](scripts). `sh peta.sh` or `sh market.sh` to run.
+Training scripts in [scripts](scripts). `sh peta.sh` or `sh market.sh` (`sh market_alt.sh` for better results on `market1501`) to run.
 
 
 ### Test
 
 #### Evaluation mode
-Use `--evaluate` to switch to the evaluation mode. In doing so, **no** model training is performed. For example, say you wanna load pretrained model weights at `path_to/resnet50.pth.tar` for `resnet50` and do evaluation on Market1501, you can do
+Use `--evaluate` to switch to the evaluation mode. Doing so, **no** model training is performed. 
+
+To resume an image branch pretrained model from checkpoints, the example script is
 ```bash
 python train.py \
 -s market1501 \ 
---width 128 \
 --test-batch-size 100 \
 --evaluate \
 -a resnet50 \
---resume-i1 dir/model_name.pth.tar \
+--resume-i1 dir/checkpoint_ep_al_I1.pth.tar \
+--resume-i2 dir/checkpoint_ep_al_I2.pth.tar \
+--resume-i2sem dir/checkpoint_ep_al_I2sem.pth.tar \
+--resume-x dir/checkpoint_ep_al_x.pth.tar \
 --save-dir log/eval \
 --gpu-devices 0 
 ```
-To resume an image branch pretrained model from checkpoints, `--resume-i1 dir/model_i1.pth.tar --resume-i2 dir/model_i2.pth.tar  --resume-i2-sem dir/model_i2_sem.pth.tar --resume-x dir/model_x.pth.tar`
 
-To resume a jointly pretrained model from checkpoints, `--resume-i1 dir/model_i1.pth.tar --resume-i2 dir/model_i2.pth.tar  --resume-i2-sem dir/model_i2_sem.pth.tar --resume-x dir/model_x.pth.tar --resume-g dir/model_g.pth.tar --resume-a dir/model_a.pth.tar`
+To resume a jointly pretrained model from checkpoints, the example script is
+```bash
+python train.py \
+-s market1501 \ 
+--test-batch-size 100 \
+--evaluate \
+-a resnet50 \
+--resume-i1 dir/checkpoint_ep_al_I1.pth.tar \
+--resume-g dir/checkpoint_ep_al_G.pth.tar \
+--resume-i2 dir/checkpoint_ep_al_I2.pth.tar \
+--resume-i2sem dir/checkpoint_ep_al_I2sem.pth.tar \
+--resume-a dir/checkpoint_ep_al_a.pth.tar \
+--resume-x dir/checkpoint_ep_al_x.pth.tar \
+--save-dir log/eval \
+--gpu-devices 0 
+```
 
-To resume a full SAL model from checkpoints, `--resume-i1 dir/model_i1.pth.tar --resume-i2 dir/model_i2.pth.tar  --resume-i2-sem dir/model_i2_sem.pth.tar --resume-x dir/model_x.pth.tar --resume-g dir/model_g.pth.tar --resume-a dir/model_a.pth.tar --resume-ga dir/model_ga.pth.tar --resume-gx dir/model_gx.pth.tar --resume-dc dir/model_dc.pth.tar --resume-ds dir/model_ds.pth.tar`
+To resume a full SAL model from checkpoints, , the example script is
+```bash
+python train.py \
+-s market1501 \ 
+--test-batch-size 100 \
+--evaluate \
+-a resnet50 \
+--resume-i1 dir/checkpoint_ep_al_I1.pth.tar \
+--resume-g dir/checkpoint_ep_al_G.pth.tar \
+--resume-i2 dir/checkpoint_ep_al_I2.pth.tar \
+--resume-i2sem dir/checkpoint_ep_al_I2sem.pth.tar \
+--resume-gx dir/checkpoint_ep_al_GX.pth.tar \
+--resume-ga dir/checkpoint_ep_al_GA.pth.tar \
+--resume-dc dir/checkpoint_ep_al_DC.pth.tar \
+--resume-a dir/checkpoint_ep_al_a.pth.tar \
+--resume-x dir/checkpoint_ep_al_x.pth.tar \
+--resume-ds dir/checkpoint_ep_al_DS.pth.tar \
+--save-dir log/eval \
+--gpu-devices 0 
+```
 
 #### Evaluation frequency
 Use `--eval-freq` to control the evaluation frequency and `--start-eval` to indicate when to start counting the evaluation frequency. This is useful when you want to test the model for every `--eval-freq` epochs to diagnose the training.
@@ -103,7 +143,7 @@ Use `--eval-freq` to control the evaluation frequency and `--start-eval` to indi
 Ranked results can be visualized via `--visualize-ranks`, which works along with `--evaluate`. Ranked images will be saved in `save_dir/ranked_results/dataset_name` where `save_dir` is the directory you specify with `--save-dir`. This function is implemented in [torchreid/utils/reidtools.py](torchreid/utils/reidtools.py).
 
 #### Trained models
-To be released soon.
+Pretrained and state-of-the-art models can be downloaded from [url](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaoaf_connect_ust_hk/EqOH1p24IvtCid8o914_ai8B8_YOesN5W8oXTiHOhcfsrg).
 
 ## Citation
 If you find this code useful to your research, please cite the following paper

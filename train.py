@@ -220,7 +220,7 @@ def main():
                 group['initial_lr'] = group['lr']
         args.start_epoch_pt = checkpoint['epoch'] + 1
         print("Loaded checkpoint from '{}'".format(args.resume_i1))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_i2 and check_isfile(args.resume_i2):
         checkpoint = torch.load(args.resume_i2)
@@ -229,7 +229,7 @@ def main():
         else:
             model_I2.load_state_dict(checkpoint['state_dict'])
         print("Loaded checkpoint from '{}'".format(args.resume_i2))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_i2_sem and check_isfile(args.resume_i2_sem):
         checkpoint = torch.load(args.resume_i2_sem)
@@ -238,7 +238,7 @@ def main():
         else:
             model_I2_sem.load_state_dict(checkpoint['state_dict'])
         print("Loaded checkpoint from '{}'".format(args.resume_i2_sem))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_x and check_isfile(args.resume_x):
         checkpoint = torch.load(args.resume_x)
@@ -247,14 +247,13 @@ def main():
         else:
             model_xencoder.load_state_dict(checkpoint['state_dict'])
         if args.resume_gx:
-            args.start_epoch_al = checkpoint['epoch'] + 1
             args.start_epoch_jt = args.max_epoch_jt
             args.start_epoch_pt = args.max_epoch_pt
             optimizer_X.load_state_dict(checkpoint['optimizer_x'])
             for group in optimizer_X.param_groups:
                 group['initial_lr'] = group['lr']
         print("Loaded checkpoint from '{}'".format(args.resume_x))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_a and check_isfile(args.resume_a):
         checkpoint = torch.load(args.resume_a)
@@ -263,14 +262,13 @@ def main():
         else:
             model_aencoder.load_state_dict(checkpoint['state_dict'])
         if args.resume_gx:
-            args.start_epoch_al = checkpoint['epoch'] + 1
             args.start_epoch_jt = args.max_epoch_jt
             args.start_epoch_pt = args.max_epoch_pt
             optimizer_A.load_state_dict(checkpoint['optimizer_a'])
             for group in optimizer_A.param_groups:
                 group['initial_lr'] = group['lr']
         print("Loaded checkpoint from '{}'".format(args.resume_a))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_g and check_isfile(args.resume_g):
         checkpoint = torch.load(args.resume_g)
@@ -289,7 +287,7 @@ def main():
             for group in optimizer_G.param_groups:
                 group['initial_lr'] = group['lr']
         print("Loaded checkpoint from '{}'".format(args.resume_g))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_jt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_ga and check_isfile(args.resume_ga):
         checkpoint = torch.load(args.resume_ga)
@@ -298,7 +296,6 @@ def main():
         else:
             model_GA.load_state_dict(checkpoint['state_dict'])
         # loading saved generative model means the pretraining is completed
-        args.start_epoch_al = checkpoint['epoch'] + 1
         args.start_epoch_jt = args.max_epoch_jt
         args.start_epoch_pt = args.max_epoch_pt
         print("Loaded checkpoint from '{}'".format(args.resume_ga))
@@ -325,7 +322,7 @@ def main():
         for group in optimizer_GC.param_groups:
             group['initial_lr'] = group['lr']
         print("Loaded checkpoint from '{}'".format(args.resume_dc))
-        print("- start_epoch: {}\n- rank1: {}".format(args.start_epoch_pt, checkpoint['rank1']))
+        print("- rank1: {}".format(checkpoint['rank1']))
 
     if args.resume_ds and check_isfile(args.resume_ds):
         checkpoint = torch.load(args.resume_ds)
@@ -426,30 +423,31 @@ def main():
 
             optim_state_dict = optimizer.state_dict()
 
-            save_checkpoint({
-                'state_dict': state_dict_I1,
-                'rank1': 0,
-                'epoch': epoch,
-                'optimizer': optim_state_dict,
-            }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I1' + str(epoch + 1) + '.pth.tar'))
+            if not args.no_save:
+                save_checkpoint({
+                    'state_dict': state_dict_I1,
+                    'rank1': 0,
+                    'epoch': epoch,
+                    'optimizer': optim_state_dict,
+                }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I1' + str(epoch + 1) + '.pth.tar'))
 
-            save_checkpoint({
-                'state_dict': state_dict_I2,
-                'rank1': 0,
-                'epoch': epoch,
-            }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I2' + str(epoch + 1) + '.pth.tar'))
+                save_checkpoint({
+                    'state_dict': state_dict_I2,
+                    'rank1': 0,
+                    'epoch': epoch,
+                }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I2' + str(epoch + 1) + '.pth.tar'))
 
-            save_checkpoint({
-                'state_dict': state_dict_I2_sem,
-                'rank1': 0,
-                'epoch': epoch,
-            }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I2sem' + str(epoch + 1) + '.pth.tar'))
+                save_checkpoint({
+                    'state_dict': state_dict_I2_sem,
+                    'rank1': 0,
+                    'epoch': epoch,
+                }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_I2sem' + str(epoch + 1) + '.pth.tar'))
 
-            save_checkpoint({
-                'state_dict': state_dict_xencoder,
-                'rank1': 0,
-                'epoch': epoch,
-            }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_x' + str(epoch + 1) + '.pth.tar'))
+                save_checkpoint({
+                    'state_dict': state_dict_xencoder,
+                    'rank1': 0,
+                    'epoch': epoch,
+                }, False, osp.join(args.save_dir, 'checkpoint_ep_pt_x' + str(epoch + 1) + '.pth.tar'))
 
     elapsed = round(time.time() - start_time)
     elapsed = str(datetime.timedelta(seconds=elapsed))

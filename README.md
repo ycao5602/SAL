@@ -148,15 +148,14 @@ Pretrained and state-of-the-art models can be downloaded from [url](https://hkus
 ## Citation
 If you find this code useful to your research, please cite the following paper
 
-    @misc{cao2020symbiotic,
-        title={Symbiotic Adversarial Learning for Attribute-based Person Search},
-        author={Yu-Tong Cao and Jingya Wang and Dacheng Tao},
-        year={2020},
-        eprint={2007.09609},
-        archivePrefix={arXiv},
-        primaryClass={cs.CV}
+    @inproceedings{cao2020symbiotic,
+    title={Symbiotic Adversarial Learning for Attribute-based Person Search},
+    author={Cao, Yu-Tong and Wang, Jingya and Tao, Dacheng},
+    booktitle={European Conference on Computer Vision},
+        pages={230--247},
+    year={2020},
+    organization={Springer}
     }
-
 ## Related
 The project is developed based on [deep-person-reid](https://github.com/KaiyangZhou/deep-person-reid).
     

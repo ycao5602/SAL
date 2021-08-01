@@ -2,6 +2,8 @@
 PyTorch implementation of [Symbiotic Adversarial Learning for Attribute-based Person Search](https://arxiv.org/abs/2007.09609) (ECCV2020).
 
 ## Update
+01/08/21: Updated [requirements.txt](requirements.txt). Upgrading Pillow to version 8.2.0 or later due to some issues in Pillow.
+
 28/02/21: Updated [train.py](train.py) and [scripts](scripts). Uploaded [trained models](https://hkustconnect-my.sharepoint.com/:f:/g/personal/ycaoaf_connect_ust_hk/EqOH1p24IvtCid8o914_ai8BrP1SuXZT56JQbEhoVP_IxA?e=hN5IWI).
 
 ## Problem setting
